@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 server.use(morgan("dev"));
 server.use(cors());
 server.use(express.json());
