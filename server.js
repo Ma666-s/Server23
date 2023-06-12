@@ -21,7 +21,7 @@ server.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Medilab")
+  .connect("mongodb+srv://mohamed:VSusS0kmpIr2uErv@firstapi.s4gtsfr.mongodb.net/")
   .then(() => {
     console.log("DataBase connected");
     server.listen(port, () => {
