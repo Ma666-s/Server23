@@ -1,5 +1,5 @@
 const doctorRoute = require("./routes/doctorRoute");
-
+const treatmentRoute = require("./routes/treatmentRoute");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -12,6 +12,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/doctors", doctorRoute);
+server.use("/treatments", treatmentRoute);
 server.use((req, res, next) => {
   res.status(404).json({ error: "Not Found" });
 });
