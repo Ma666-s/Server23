@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const doctorSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  image:String,
+  image:{
+    type: String
+  },
   name:String,
   title: String,
   about:String,

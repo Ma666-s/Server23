@@ -1,5 +1,13 @@
 const doctorRoute = require("./routes/doctorRoute");
 const treatmentRoute = require("./routes/treatmentRoute");
+const userRoute = require("./routes/user");
+
+const globalErrorHandler = require('./controller/error');
+require("dotenv").config({ path: "server/config.env" });
+const AppError = require('./utils/appError');
+
+
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -9,17 +17,17 @@ const server = express();
 const port = process.env.PORT || 3000;
 server.use(morgan("dev"));
 server.use(cors());
+
 server.use(express.json());
 
 server.use("/doctors", doctorRoute);
 server.use("/treatments", treatmentRoute);
-server.use((req, res, next) => {
-  res.status(404).json({ error: "Not Found" });
+server.use("/api/users/auth", userRoute);
+
+server.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
-server.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ error: err });
-});
+server.use(globalErrorHandler);
 
 mongoose
   .connect("mongodb+srv://mohamed:VSusS0kmpIr2uErv@firstapi.s4gtsfr.mongodb.net/Medilab")
